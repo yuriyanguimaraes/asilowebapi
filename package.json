@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/hppod/asilowebapi/issues"
   },
-  "homepage": "https://github.com/hppod/asilowebapi#readme"
+  "homepage": "https://github.com/hppod/asilowebapi#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  }
 }
