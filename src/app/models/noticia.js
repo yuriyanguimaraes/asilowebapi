@@ -16,13 +16,6 @@ const NoticiaSchema = new Schema({
         type: Array,
         required: false,
     },
-    categoria: {
-        type: String,
-        required: true,
-        minlength: 4,
-        maxlength: 4,
-        trim: true
-    },
     status: {
         type: Boolean,
         trim: true,
