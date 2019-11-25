@@ -10,7 +10,6 @@ const NoticiaSchema = new Schema({
     descricao: {
         type: String,
         required: true,
-        trim: true
     },
     imagem: {
         type: Array,
