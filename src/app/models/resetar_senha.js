@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose")
 
-const RestarSenhaSchema = new Schema({
+const ResetarSenhaSchema = new Schema({
     email: {
         type: String,
         required: true,
@@ -19,4 +19,4 @@ const RestarSenhaSchema = new Schema({
         timestamps: true
     }
 )
-module.exports = model('restarSenhaSchema', RestarSenhaSchema)
+module.exports = model('resetarSenhaSchema', ResetarSenhaSchema)
