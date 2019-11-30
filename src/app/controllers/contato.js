@@ -22,7 +22,16 @@ class Contato {
             }
         })
     }
-    
+
+    update(req, res) {
+        ContatoModel.updateOne({ _id: req.params.id }, { $set: req.body }, (contato, err) => {
+            if (err) {
+                res.status(500).send(err)
+            } else {
+                res.status(200).json({ message: 'Contato atualizado com sucesso', data: contato })
+            }
+        })
+    }
 }
 
 module.exports = new Contato()
