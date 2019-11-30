@@ -31,6 +31,11 @@ const ContatoSchema = new Schema({
         required: true,
         maxlength: 100
     },
+    estado: {
+        type: String,
+        required: true,
+        maxlength: 2
+    },
     telefone: {
         type: Array,
         required: false,
