@@ -17,7 +17,7 @@ const ContatoSchema = new Schema({
         maxlength: 20
     },
     cep: {
-        type: Number,
+        type: String,
         required: true,
         maxlength: 20
     },
