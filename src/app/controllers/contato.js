@@ -32,6 +32,16 @@ class Contato {
             }
         })
     }
+
+    delete(req, res) {
+        ContatoModel.deleteOne({ _id: req.params.id }, (contato, err) => {
+            if (err) {
+                res.status(500).send(err)
+            } else {
+                res.status(200).json({ message: 'Contato apagado com sucesso', data: contato })
+            }
+        })
+    }
 }
 
 module.exports = new Contato()
