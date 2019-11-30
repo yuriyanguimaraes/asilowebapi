@@ -17,6 +17,7 @@ const ContatoRoutes = require('./src/app/routes/contato')
 const FaqRoutes = require('./src/app/routes/faq')
 const HistoricoRoutes = require('./src/app/routes/historico')
 const NoticiaRoutes = require('./src/app/routes/noticia')
+const QuemSomosRoutes = require('./src/app/routes/quem_somos')
 
 app.get('/', (req, res) => {
     res.send({ message: 'API backend node.js para o projeto do site institucional do asilo de Ibitinga' })
@@ -26,6 +27,7 @@ app.use('/', ContatoRoutes)
 app.use('/', FaqRoutes)
 app.use('/', HistoricoRoutes)
 app.use('/', NoticiaRoutes)
+app.use('/', QuemSomosRoutes)
 
 app.use('*', (req, res) => res.send({ message: 'API não encontrada' }))
 
