@@ -18,7 +18,7 @@ const FaqRoutes = require('./src/app/routes/faq')
 const HistoricoRoutes = require('./src/app/routes/historico')
 
 app.get('/', (req, res) => {
-    res.send({ message: 'API backend node.js para o projeto do site institucional do asilo de ibitinga' })
+    res.send({ message: 'API backend node.js para o projeto do site institucional do asilo de Ibitinga' })
 })
 
 app.use('/', ContatoRoutes)
