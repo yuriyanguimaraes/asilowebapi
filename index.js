@@ -15,6 +15,7 @@ app.use(bodyParser.json({ type: 'application/json' }));
 
 const ContatoRoutes = require('./src/app/routes/contato')
 const FaqRoutes = require('./src/app/routes/faq')
+const HistoricoRoutes = require('./src/app/routes/historico')
 
 app.get('/', (req, res) => {
     res.send({ message: 'API backend node.js para o projeto do site institucional do asilo de ibitinga' })
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 
 app.use('/', ContatoRoutes)
 app.use('/', FaqRoutes)
+app.use('/', HistoricoRoutes)
 
 app.use('*', (req, res) => res.send({ message: 'API não encontrada' }))
 
