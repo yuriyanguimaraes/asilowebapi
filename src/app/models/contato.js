@@ -13,7 +13,7 @@ const ContatoSchema = new Schema({
     },
     numero: {
         type: Number,
-        required: false,
+        required: true,
         maxlength: 20
     },
     cep: {
@@ -21,9 +21,9 @@ const ContatoSchema = new Schema({
         required: true,
         maxlength: 20
     },
-    complemeto: {
+    complemento: {
         type: String,
-        required: true,
+        required: false,
         maxlength: 100
     },
     cidade: {
