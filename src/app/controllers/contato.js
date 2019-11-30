@@ -6,7 +6,7 @@ class Contato {
     get(req, res) {
         ContatoModel.find({}, (contato, err) => {
             if (err) {
-                res.status(500).send(err)
+                res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
                 res.status(200).json({ message: 'Dados recuperados com sucesso', data: contato })
             }
@@ -16,7 +16,7 @@ class Contato {
     create(req, res) {
         ContatoModel.create(req.body, (contato, err) => {
             if (err) {
-                res.status(500).send(err)
+                res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
                 res.status(201).json({ message: 'Contato inserido com sucesso', data: contato })
             }
@@ -26,7 +26,7 @@ class Contato {
     update(req, res) {
         ContatoModel.updateOne({ _id: req.params.id }, { $set: req.body }, (contato, err) => {
             if (err) {
-                res.status(500).send(err)
+                res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
                 res.status(200).json({ message: 'Contato atualizado com sucesso', data: contato })
             }
@@ -36,7 +36,7 @@ class Contato {
     delete(req, res) {
         ContatoModel.deleteOne({ _id: req.params.id }, (contato, err) => {
             if (err) {
-                res.status(500).send(err)
+                res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
                 res.status(200).json({ message: 'Contato apagado com sucesso', data: contato })
             }
