@@ -8,7 +8,17 @@ class Contato {
             if (err) {
                 res.status(500).send(err)
             } else {
-                res.status(200).send(contato)
+                res.status(200).json({ message: 'Dados recuperados com sucesso', data: contato })
+            }
+        })
+    }
+
+    create(req, res) {
+        ContatoModel.create(req.body, (contato, err) => {
+            if (err) {
+                res.status(500).send(err)
+            } else {
+                res.status(201).json({ message: 'Contato inserido com sucesso', data: contato })
             }
         })
     }
