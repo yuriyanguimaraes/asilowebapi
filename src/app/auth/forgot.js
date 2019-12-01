@@ -1,0 +1,7 @@
+const mongoose = require('mongoose')
+const fs = require('fs')
+const crypto = require('crypto')
+const bcrypt = require('bcrypt')
+const handlebars = require('handlebars')
+const nodemailer = require('nodemailer')
+const UsuarioModel = require('./../models/usuario')
