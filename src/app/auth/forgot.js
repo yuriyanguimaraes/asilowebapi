@@ -74,4 +74,57 @@ const sendMailForgot = (req, res, next) => {
     })
 }
 
-module.exports = (sendMailForgot)
+const resetAndDefineNewPass = (req, res, next) => {
+    const token = req.params.token
+    const id = req.body.id
+    const newPassword = req.body.password
+    const confirmNewPassword = req.body.confirmPassword
+
+    ResetPassModel.findOne({ token: token }, (err, reset) => {
+        if (err) {
+            res.status(500).json({ message: 'Houve um erro ao processar sua requisição' })
+        } else {
+            if (!reset) {
+                res.status(422).json({ message: 'Não encontramos um pedido de redefinição de senha! Tente novamente' })
+            } else {
+                if (newPassword === confirmNewPassword) {
+                    JSON.stringify(newPassword)
+                    const salt = await bcrypt.genSaltSync(10)
+                    hashPassword = await bcrypt.hash(newPassword, salt)
+                    UsuarioModel.update({ _id: id }, { $senha: newPassword }, (err, usuario) => {
+                        if (err) {
+                            res.status(500).json({ message: 'Houve um erro ao processar sua requisição' })
+                        } else {
+                            if (!usuario) {
+                                res.status(422).json({ message: 'Ocorreu um erro' })
+                            } else {
+                                readHTMLFile(__dirname + '/templates/reset-success.html', function (err, html) {
+                                    var template = handlebars.compile(html)
+                                    var replacements = {
+                                        name: usuario.nome
+                                    }
+                                    var htmlToSend = template(replacements)
+                                    var mailOptions = {
+                                        to: usuario.email,
+                                        from: process.env.MESSENGER_MAIL,
+                                        html: htmlToSend,
+                                        subject: 'Redefinimos a sua senha | Asilo Web'
+                                    }
+                                    smtpTransport.sendMail(mailOptions, function (err, info) {
+                                        if (err) {
+                                            res.status(442).json({ message: 'Servilo Indisponível' })
+                                        } else {
+                                            res.status(200).json({ message: 'Senha redefinida com sucesso' })
+                                        }
+                                    })
+                                })
+                            }
+                        }
+                    })
+                }
+            }
+        }
+    })
+}
+
+module.exports = (sendMailForgot, resetAndDefineNewPass)
