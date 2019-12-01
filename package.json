@@ -7,16 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/hppod/asilowebapi.git"
-  },
   "author": "hppod",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/hppod/asilowebapi/issues"
-  },
-  "homepage": "https://github.com/hppod/asilowebapi#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
