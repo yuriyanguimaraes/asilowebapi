@@ -19,6 +19,7 @@ const HistoricoRoutes = require('./src/app/routes/historico')
 const NoticiaRoutes = require('./src/app/routes/noticia')
 const QuemSomosRoutes = require('./src/app/routes/quem_somos')
 const TransparenciaRoutes = require('./src/app/routes/transparencia')
+const UsuarioRoutes = require('./src/app/routes/usuario')
 
 app.get('/', (req, res) => {
     res.send({ message: 'API backend node.js para o projeto do site institucional do asilo de Ibitinga' })
@@ -30,6 +31,7 @@ app.use('/', HistoricoRoutes)
 app.use('/', NoticiaRoutes)
 app.use('/', QuemSomosRoutes)
 app.use('/', TransparenciaRoutes)
+app.use('/', UsuarioRoutes)
 
 app.use('*', (req, res) => res.send({ message: 'API não encontrada' }))
 
