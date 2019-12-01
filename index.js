@@ -21,9 +21,13 @@ const QuemSomosRoutes = require('./src/app/routes/quem_somos')
 const TransparenciaRoutes = require('./src/app/routes/transparencia')
 const UsuarioRoutes = require('./src/app/routes/usuario')
 
+const handleAuthentication = require('./src/app/auth/authentication')
+
 app.get('/', (req, res) => {
     res.send({ message: 'API backend node.js para o projeto do site institucional do asilo de Ibitinga' })
 })
+
+app.post('/login', handleAuthentication)
 
 app.use('/', ContatoRoutes)
 app.use('/', FaqRoutes)
