@@ -30,7 +30,7 @@ const smtpTransport = nodemailer.createTransport({
     }
 })
 
-const sendMailForgot = (req, res, next) => {
+exports.sendMailForgot = function (req, res, next) {
     const email = req.body.email
 
     UsuarioModel.findOne({ email: email }, (err, usuario) => {
@@ -74,7 +74,7 @@ const sendMailForgot = (req, res, next) => {
     })
 }
 
-const resetAndDefineNewPass = (req, res, next) => {
+exports.resetAndDefineNewPass = function (req, res, next) {
     const token = req.params.token
     const id = req.body.id
     const newPassword = req.body.password
@@ -126,5 +126,3 @@ const resetAndDefineNewPass = (req, res, next) => {
         }
     })
 }
-
-module.exports = (sendMailForgot, resetAndDefineNewPass)

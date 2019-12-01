@@ -23,12 +23,19 @@ const UsuarioRoutes = require('./src/app/routes/usuario')
 
 const handleAuthentication = require('./src/app/auth/authentication')
 const handleAuthorization = require('./src/app/auth/authorization')
+const forgot = require('./src/app/auth/forgot')
 
 app.get('/', (req, res) => {
     res.send({ message: 'API backend node.js para o projeto do site institucional do asilo de Ibitinga' })
 })
 
 app.post('/login', handleAuthentication)
+
+app.route('/esqueci-a-senha')
+    .post(forgot.sendMailForgot)
+
+app.route('/esqueci-a-senha/:token')
+    .post(forgot.resetAndDefineNewPass)
 
 app.use('/', handleAuthorization, ContatoRoutes)
 app.use('/', handleAuthorization, FaqRoutes)
