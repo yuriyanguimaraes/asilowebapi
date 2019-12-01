@@ -73,3 +73,5 @@ const sendMailForgot = (req, res, next) => {
         }
     })
 }
+
+module.exports = (sendMailForgot)
