@@ -48,7 +48,7 @@ exports.sendMailForgot = function (req, res, next) {
                         readHTMLFile(__dirname + '/templates/forgot-pass.html', function (err, html) {
                             var template = handlebars.compile(html)
                             var replacements = {
-                                url: process.env.MESSENGER_URL,
+                                url: process.env.MESSENGER_URL + token,
                                 NAME: usuario.nome
                             }
                             var htmlToSend = template(replacements)
@@ -80,7 +80,7 @@ exports.resetAndDefineNewPass = function (req, res, next) {
     const newPassword = req.body.password
     const confirmNewPassword = req.body.confirmPassword
 
-    ResetPassModel.findOne({ token: token }, (err, reset) => {
+    ResetPassModel.findOne({ token: token }, async (err, reset) => {
         if (err) {
             res.status(500).json({ message: 'Houve um erro ao processar sua requisição' })
         } else {
@@ -91,8 +91,9 @@ exports.resetAndDefineNewPass = function (req, res, next) {
                     JSON.stringify(newPassword)
                     const salt = await bcrypt.genSaltSync(10)
                     hashPassword = await bcrypt.hash(newPassword, salt)
-                    UsuarioModel.update({ _id: id }, { $senha: newPassword }, (err, usuario) => {
+                    UsuarioModel.findByIdAndUpdate({ _id: id }, { $set: { senha: hashPassword } }, (err, usuario) => {
                         if (err) {
+                            console.log(err)
                             res.status(500).json({ message: 'Houve um erro ao processar sua requisição' })
                         } else {
                             if (!usuario) {
@@ -112,7 +113,7 @@ exports.resetAndDefineNewPass = function (req, res, next) {
                                     }
                                     smtpTransport.sendMail(mailOptions, function (err, info) {
                                         if (err) {
-                                            res.status(442).json({ message: 'Servilo Indisponível' })
+                                            res.status(442).json({ message: 'Serviço Indisponível' })
                                         } else {
                                             res.status(200).json({ message: 'Senha redefinida com sucesso' })
                                         }
