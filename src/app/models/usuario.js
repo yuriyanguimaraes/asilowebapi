@@ -31,12 +31,30 @@ const UsuarioSchema = new Schema({
     {
         versionKey: false,
         timestamps: false,
-        hooks: {
-            beforeCreate: async function (UsuarioSchema) {
-                const salt = await bcrypt.genSaltSync(10)
-                UsuarioSchema.senha = await bcrypt.hash(UsuarioSchema.senha, salt)
-            }
-        }
     }
 )
+
+UsuarioSchema.pre("save", function (next) {
+    const user = this
+
+    if (user.senha === undefined) {
+        return next()
+    }
+
+    bcrypt.genSalt(10, function (err, salt) {
+        if (err) {
+            console.log(err)
+        } else {
+            bcrypt.hash(user.senha, salt, function (err, hash) {
+                if (err) {
+                    console.log(err)
+                } else {
+                    user.senha = hash
+                    next()
+                }
+            })
+        }
+    })
+})
+
 module.exports = model('usuarioSchema', UsuarioSchema)
