@@ -22,6 +22,7 @@ const TransparenciaRoutes = require('./src/app/routes/transparencia')
 const UsuarioRoutes = require('./src/app/routes/usuario')
 
 const handleAuthentication = require('./src/app/auth/authentication')
+const handleAuthorization = require('./src/app/auth/authorization')
 
 app.get('/', (req, res) => {
     res.send({ message: 'API backend node.js para o projeto do site institucional do asilo de Ibitinga' })
@@ -29,13 +30,13 @@ app.get('/', (req, res) => {
 
 app.post('/login', handleAuthentication)
 
-app.use('/', ContatoRoutes)
-app.use('/', FaqRoutes)
-app.use('/', HistoricoRoutes)
-app.use('/', NoticiaRoutes)
-app.use('/', QuemSomosRoutes)
-app.use('/', TransparenciaRoutes)
-app.use('/', UsuarioRoutes)
+app.use('/', handleAuthorization, ContatoRoutes)
+app.use('/', handleAuthorization, FaqRoutes)
+app.use('/', handleAuthorization, HistoricoRoutes)
+app.use('/', handleAuthorization, NoticiaRoutes)
+app.use('/', handleAuthorization, QuemSomosRoutes)
+app.use('/', handleAuthorization, TransparenciaRoutes)
+app.use('/', handleAuthorization, UsuarioRoutes)
 
 app.use('*', (req, res) => res.send({ message: 'API não encontrada' }))
 
