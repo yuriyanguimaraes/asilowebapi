@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
-const NoticiaModel = require('./../models/noticia')
+const NoticiaSchema = require('./../models/noticia')
 
 class Noticia {
 
     get(req, res) {
-        NoticiaModel.find({}, (err, noticia) => {
+        NoticiaSchema.find({}, (err, noticia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -14,7 +14,7 @@ class Noticia {
     }
 
     getById(req, res) {
-        NoticiaModel.findById(req.params.id, (err, noticia) => {
+        NoticiaSchema.findById(req.params.id, (err, noticia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -24,7 +24,7 @@ class Noticia {
     }
 
     create(req, res) {
-        NoticiaModel.create(req.body, (err, noticia) => {
+        NoticiaSchema.create(req.body, (err, noticia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -34,7 +34,7 @@ class Noticia {
     }
 
     update(req, res) {
-        NoticiaModel.updateOne({ _id: req.params.id }, { $set: req.body }, (err, noticia) => {
+        NoticiaSchema.updateOne({ _id: req.params.id }, { $set: req.body }, (err, noticia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -44,7 +44,7 @@ class Noticia {
     }
 
     delete(req, res) {
-        NoticiaModel.deleteOne({ _id: req.params.id }, (err, noticia) => {
+        NoticiaSchema.deleteOne({ _id: req.params.id }, (err, noticia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {

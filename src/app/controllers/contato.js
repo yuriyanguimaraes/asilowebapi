@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
-const ContatoModel = require('./../models/contato')
+const ContatoSchema = require('./../models/contato')
 
 class Contato {
 
     get(req, res) {
-        ContatoModel.find({}, (err, contato) => {
+        ContatoSchema.find({}, (err, contato) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -14,7 +14,7 @@ class Contato {
     }
 
     create(req, res) {
-        ContatoModel.create(req.body, (err, contato) => {
+        ContatoSchema.create(req.body, (err, contato) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -24,7 +24,7 @@ class Contato {
     }
 
     update(req, res) {
-        ContatoModel.updateOne({ _id: req.params.id }, { $set: req.body }, (err, contato) => {
+        ContatoSchema.updateOne({ _id: req.params.id }, { $set: req.body }, (err, contato) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -34,7 +34,7 @@ class Contato {
     }
 
     delete(req, res) {
-        ContatoModel.deleteOne({ _id: req.params.id }, (err, contato) => {
+        ContatoSchema.deleteOne({ _id: req.params.id }, (err, contato) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {

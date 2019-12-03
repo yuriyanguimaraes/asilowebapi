@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
-const UsuarioModel = require('./../models/usuario')
+const UsuarioSchema = require('./../models/usuario')
 
 class Usuario {
 
     get(req, res) {
-        UsuarioModel.find({}, (err, usuario) => {
+        UsuarioSchema.find({}, (err, usuario) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -14,7 +14,7 @@ class Usuario {
     }
 
     getById(req, res) {
-        UsuarioModel.findById(req.params.id, (err, usuario) => {
+        UsuarioSchema.findById(req.params.id, (err, usuario) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -24,7 +24,7 @@ class Usuario {
     }
 
     create(req, res) {
-        UsuarioModel.create(req.body, (err, usuario) => {
+        UsuarioSchema.create(req.body, (err, usuario) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -34,7 +34,7 @@ class Usuario {
     }
 
     update(req, res) {
-        UsuarioModel.updateOne({ _id: req.params.id }, { $set: req.body }, (err, usuario) => {
+        UsuarioSchema.updateOne({ _id: req.params.id }, { $set: req.body }, (err, usuario) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -44,7 +44,7 @@ class Usuario {
     }
 
     delete(req, res) {
-        UsuarioModel.deleteOne({ _id: req.params.id }, (err, usuario) => {
+        UsuarioSchema.deleteOne({ _id: req.params.id }, (err, usuario) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {

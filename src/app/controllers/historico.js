@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
-const HistoricoModel = require('./../models/historico')
+const HistoricoSchema = require('./../models/historico')
 
 class Historico {
 
     get(req, res) {
-        HistoricoModel.find({}, (err, historico) => {
+        HistoricoSchema.find({}, (err, historico) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -14,7 +14,7 @@ class Historico {
     }
 
     create(req, res) {
-        HistoricoModel.create(req.body, (err, historico) => {
+        HistoricoSchema.create(req.body, (err, historico) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -24,7 +24,7 @@ class Historico {
     }
 
     update(req, res) {
-        HistoricoModel.updateOne({ _id: req.params.id }, { $set: req.body }, (err, historico) => {
+        HistoricoSchema.updateOne({ _id: req.params.id }, { $set: req.body }, (err, historico) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -34,7 +34,7 @@ class Historico {
     }
 
     delete(req, res) {
-        HistoricoModel.deleteOne({ _id: req.params.id }, (err, historico) => {
+        HistoricoSchema.deleteOne({ _id: req.params.id }, (err, historico) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {

@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
-const TransparenciaModel = require('./../models/transparencia')
+const TransparenciaSchema = require('./../models/transparencia')
 
 class Transparencia {
 
     get(req, res) {
-        TransparenciaModel.find({}, (err, transparencia) => {
+        TransparenciaSchema.find({}, (err, transparencia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -14,7 +14,7 @@ class Transparencia {
     }
 
     getById(req, res) {
-        TransparenciaModel.findById(req.params.id, (err, transparencia) => {
+        TransparenciaSchema.findById(req.params.id, (err, transparencia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -24,7 +24,7 @@ class Transparencia {
     }
 
     create(req, res) {
-        TransparenciaModel.create(req.body, (err, transparencia) => {
+        TransparenciaSchema.create(req.body, (err, transparencia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -34,7 +34,7 @@ class Transparencia {
     }
 
     update(req, res) {
-        TransparenciaModel.updateOne({ _id: req.params.id }, { $set: req.body }, (err, transparencia) => {
+        TransparenciaSchema.updateOne({ _id: req.params.id }, { $set: req.body }, (err, transparencia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -44,7 +44,7 @@ class Transparencia {
     }
 
     delete(req, res) {
-        TransparenciaModel.deleteOne({ _id: req.params.id }, (err, transparencia) => {
+        TransparenciaSchema.deleteOne({ _id: req.params.id }, (err, transparencia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {

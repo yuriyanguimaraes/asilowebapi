@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
-const FaqModel = require('./../models/faq')
+const FaqSchema = require('./../models/faq')
 
 class Faq {
 
     get(req, res) {
-        FaqModel.find({}, (err, faq) => {
+        FaqSchema.find({}, (err, faq) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -14,7 +14,7 @@ class Faq {
     }
 
     create(req, res) {
-        FaqModel.create(req.body, (err, faq) => {
+        FaqSchema.create(req.body, (err, faq) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -24,7 +24,7 @@ class Faq {
     }
 
     update(req, res) {
-        FaqModel.updateOne({ _id: req.params.id }, { $set: req.body }, (err, faq) => {
+        FaqSchema.updateOne({ _id: req.params.id }, { $set: req.body }, (err, faq) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -34,7 +34,7 @@ class Faq {
     }
 
     delete(req, res) {
-        FaqModel.deleteOne({ _id: req.params.id }, (err, faq) => {
+        FaqSchema.deleteOne({ _id: req.params.id }, (err, faq) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {

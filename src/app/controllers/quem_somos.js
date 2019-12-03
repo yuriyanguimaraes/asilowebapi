@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
-const QuemSomosModel = require('./../models/quem_somos')
+const QuemSomosSchema = require('./../models/quem_somos')
 
 class QuemSomos {
 
     get(req, res) {
-        QuemSomosModel.find({}, (err, quemSomos) => {
+        QuemSomosSchema.find({}, (err, quemSomos) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -14,7 +14,7 @@ class QuemSomos {
     }
 
     create(req, res) {
-        QuemSomosModel.create(req.body, (err, quemSomos) => {
+        QuemSomosSchema.create(req.body, (err, quemSomos) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -24,7 +24,7 @@ class QuemSomos {
     }
 
     update(req, res) {
-        QuemSomosModel.updateOne({ _id: req.params.id }, { $set: req.body }, (err, quemSomos) => {
+        QuemSomosSchema.updateOne({ _id: req.params.id }, { $set: req.body }, (err, quemSomos) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -34,7 +34,7 @@ class QuemSomos {
     }
 
     delete(req, res) {
-        QuemSomosModel.deleteOne({ _id: req.params.id }, (err, quemSomos) => {
+        QuemSomosSchema.deleteOne({ _id: req.params.id }, (err, quemSomos) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
