@@ -123,8 +123,8 @@ exports.resetAndDefineNewPass = function (req, res) {
                                             res.status(442).json({ message: 'Serviço Indisponível' })
                                         } else {
                                             res.status(200).json({ message: 'Senha redefinida com sucesso' })
-                                            ResetPassSchema.findOneAndDelete({ _id: id }, (err) => {
-                                                console.log(`Erro ao deletar token de redefinição de senha => ${err}`)
+                                            ResetPassSchema.findByIdAndUpdate({ _id: id }, { $set: { isValid: 0 } }, (err) => {
+                                                console.log(`Erro ao invalidar token de redefinição de senha => ${err}`)
                                             })
                                         }
                                     })
