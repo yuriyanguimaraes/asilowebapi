@@ -1,13 +1,13 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const UsuarioModel = require('./../models/usuario')
+const UsuarioSchema = require('./../models/usuario')
 
 const handleAuthentication = (req, res) => {
     const email = req.body.email
     const pass = req.body.password
 
-    UsuarioModel.findOne({ email: email }, (err, usuario) => {
+    UsuarioSchema.findOne({ email: email }, (err, usuario) => {
         if (err) {
             res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
         } else {
