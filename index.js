@@ -38,13 +38,13 @@ app.get('/', (req, res) => {
 app.post('/login', handleAuthentication)
 
 app.use('/', AuthRoutes)
-app.use('/', handleAuthorization, ContatoRoutes)
-app.use('/', handleAuthorization, FaqRoutes)
-app.use('/', handleAuthorization, HistoricoRoutes)
-app.use('/', handleAuthorization, NoticiaRoutes)
-app.use('/', handleAuthorization, QuemSomosRoutes)
-app.use('/', handleAuthorization, TransparenciaRoutes)
-app.use('/', handleAuthorization, UsuarioRoutes)
+app.use('/', /*handleAuthorization,*/ ContatoRoutes)
+app.use('/', /*handleAuthorization,*/ FaqRoutes)
+app.use('/', /*handleAuthorization,*/ HistoricoRoutes)
+app.use('/', /*handleAuthorization,*/ NoticiaRoutes)
+app.use('/', /*handleAuthorization,*/ QuemSomosRoutes)
+app.use('/', /*handleAuthorization,*/ TransparenciaRoutes)
+app.use('/', /*handleAuthorization,*/ UsuarioRoutes)
 
 app.use('*', (req, res) => res.send({ message: 'API não encontrada' }))
 
