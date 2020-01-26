@@ -17,7 +17,7 @@ app.use(bodyParser.json({ type: 'application/json' }));
 /*
     CONFIG CORS
 */
-app.use(cors)
+app.use(cors())
 
 const ContatoRoutes = require('./src/app/routes/contato')
 const FaqRoutes = require('./src/app/routes/faq')
