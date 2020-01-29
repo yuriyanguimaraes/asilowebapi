@@ -4,6 +4,7 @@ const NoticiaController = require('./../controllers/noticia')
 
 route.get('/noticia', NoticiaController.get)
 route.get('/noticia/:_id', NoticiaController.getById)
+route.get('/noticia-three-results', NoticiaController.getThreeResults)
 route.post('/noticia', NoticiaController.create)
 route.put('/noticia/:id', NoticiaController.update)
 route.delete('/noticia/:id', NoticiaController.delete)
