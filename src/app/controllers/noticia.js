@@ -13,8 +13,8 @@ class Noticia {
         }).sort([['data', -1]])
     }
 
-    getByTitle(req, res) {
-        NoticiaSchema.findOne(req.params.titulo, (err, noticia) => {
+    getById(req, res) {
+        NoticiaSchema.findById(req.params._id, (err, noticia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
