@@ -15,6 +15,10 @@ const NoticiaSchema = new Schema({
         type: Array,
         required: false,
     },
+    data: {
+        type: Date,
+        required: true
+    },
     status: {
         type: Boolean,
         trim: true,
