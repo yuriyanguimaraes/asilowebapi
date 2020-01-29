@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose")
+const bcrypt = require('bcrypt')
 
 const UsuarioSchema = new Schema({
     nome: {
@@ -29,7 +30,31 @@ const UsuarioSchema = new Schema({
 },
     {
         versionKey: false,
-        timestamps: false
+        timestamps: false,
     }
 )
+
+UsuarioSchema.pre("save", function (next) {
+    const user = this
+
+    if (user.senha === undefined) {
+        return next()
+    }
+
+    bcrypt.genSalt(10, function (err, salt) {
+        if (err) {
+            console.log(err)
+        } else {
+            bcrypt.hash(user.senha, salt, function (err, hash) {
+                if (err) {
+                    console.log(err)
+                } else {
+                    user.senha = hash
+                    next()
+                }
+            })
+        }
+    })
+})
+
 module.exports = model('usuarioSchema', UsuarioSchema)

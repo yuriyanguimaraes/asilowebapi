@@ -13,23 +13,28 @@ const ContatoSchema = new Schema({
     },
     numero: {
         type: Number,
-        required: false,
+        required: true,
         maxlength: 20
     },
     cep: {
-        type: Number,
+        type: String,
         required: true,
         maxlength: 20
     },
-    complemeto: {
+    complemento: {
         type: String,
-        required: true,
+        required: false,
         maxlength: 100
     },
     cidade: {
         type: String,
         required: true,
         maxlength: 100
+    },
+    estado: {
+        type: String,
+        required: true,
+        maxlength: 2
     },
     telefone: {
         type: Array,

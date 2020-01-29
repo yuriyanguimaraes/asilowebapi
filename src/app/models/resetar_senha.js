@@ -12,6 +12,12 @@ const ResetarSenhaSchema = new Schema({
         required: true,
         trim: true,
         maxlength: 100
+    },
+    isValid: {
+        type: Boolean,
+        trim: true,
+        maxlength: 1,
+        default: 1
     }
 },
     {
