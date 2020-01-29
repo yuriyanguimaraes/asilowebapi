@@ -10,11 +10,11 @@ class Noticia {
             } else {
                 res.status(200).json({ message: 'Dados recuperados com sucesso', data: noticia })
             }
-        })
+        }).sort([['data', -1]])
     }
 
-    getById(req, res) {
-        NoticiaSchema.findById(req.params.id, (err, noticia) => {
+    getByTitle(req, res) {
+        NoticiaSchema.findOne(req.params.titulo, (err, noticia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
