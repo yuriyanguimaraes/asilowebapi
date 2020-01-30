@@ -23,7 +23,17 @@ class Noticia {
         })
     }
 
+    getNoticiaByTitle(req, res) {
+        let title = req.params.title.replace(/%20/g, " ")
 
+        NoticiaSchema.findOne({ titulo: { $eq: title } }, (err, noticia) => {
+            if (err) {
+                res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
+            } else {
+                res.status(200).json({ message: 'Noticia recuperada com sucesso', data: noticia })
+            }
+        })
+    }
 
     create(req, res) {
         NoticiaSchema.create(req.body, (err, noticia) => {
