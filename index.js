@@ -3,7 +3,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || process.env.APP_PORT || 3000
 const database = require('./src/config/database')
 
 /*
