@@ -13,6 +13,18 @@ class Transparencia {
         })
     }
 
+    getByCategory(req, res) {
+        let category = req.params.category.replace(/%20/g, " ")
+
+        TransparenciaSchema.find({ categoria: { $eq: category } }, (err, transparencia) => {
+            if (err) {
+                res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
+            } else {
+                res.status(200).json({ message: 'Transparência recuperado com sucesso', data: transparencia })
+            }
+        })
+    }
+
     getById(req, res) {
         TransparenciaSchema.findById(req.params.id, (err, transparencia) => {
             if (err) {
