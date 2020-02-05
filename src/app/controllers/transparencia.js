@@ -1,28 +1,55 @@
-const mongoose = require('mongoose')
 const TransparenciaSchema = require('./../models/transparencia')
 
 class Transparencia {
 
-    get(req, res) {
-        TransparenciaSchema.find({}, (err, transparencia) => {
-            if (err) {
-                res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
-            } else {
-                res.status(200).json({ message: 'Dados recuperados com sucesso', data: transparencia })
-            }
-        })
-    }
+    getWithParams(req, res) {
 
-    getByCategory(req, res) {
-        let category = req.params.category.replace(/%20/g, " ")
+        const limit = 10
+        
+        let query = {}
+        let page = req.query.page
+        let skip = limit * (page - 1)
+        let { category, dateStart, dateFinish, order } = req.query
 
-        TransparenciaSchema.find({ categoria: { $eq: category } }, (err, transparencia) => {
-            if (err) {
-                res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
-            } else {
-                res.status(200).json({ message: 'Transparência recuperado com sucesso', data: transparencia })
-            }
-        })
+        if (category) {
+            query['categoria'] = new RegExp(category, "i")
+        }
+
+        if (dateStart && dateFinish) {
+            query['data'] = { $gte: new Date(dateStart), $lte: new Date(dateFinish) }
+        }
+
+        if (dateStart && !dateFinish) {
+            dateFinish = Date.now()
+            query['data'] = { $gte: new Date(dateStart), $lte: new Date(dateFinish) }
+        }
+
+        TransparenciaSchema
+            .find(query)
+            .sort({ data: order })
+            .skip(skip)
+            .limit(limit)
+            .exec((err, data) => {
+                if (err) {
+                    res.status(500).json({ message: 'Houve um erro ao processar sua requisição', err: err })
+                }
+                else if (Array.isArray(data) && data.length == 0) {
+                    res.status(404).json({ message: 'Não foram encontrados dados para os termos da pesquisa' })
+                } else {
+                    TransparenciaSchema.estimatedDocumentCount().exec((err, count) => {
+                        if (err) {
+                            res.status(500).json({ message: 'Houve um erro ao processar sua requisição', err: err })
+                        } else {
+                            res.status(200).json({
+                                message: 'Dados recuperados com sucesso',
+                                data: data,
+                                page: page,
+                                pages: Math.ceil(count / limit)
+                            })
+                        }
+                    })
+                }
+            })
     }
 
     getById(req, res) {
