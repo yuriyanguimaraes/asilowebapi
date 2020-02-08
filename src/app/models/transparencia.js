@@ -19,7 +19,7 @@ const TransparenciaSchema = new Schema({
         maxlength: 50,
         trim: true
     },
-    data: {
+    date: {
         type: Date,
         required: true
     },

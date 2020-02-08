@@ -16,12 +16,12 @@ class Transparencia {
         }
 
         if (dateStart && dateFinish) {
-            query['data'] = { $gte: new Date(dateStart), $lte: new Date(dateFinish) }
+            query['date'] = { $gte: new Date(dateStart), $lte: new Date(dateFinish) }
         }
 
         if (dateStart && !dateFinish) {
             dateFinish = Date.now()
-            query['data'] = { $gte: new Date(dateStart), $lte: new Date(dateFinish) }
+            query['date'] = { $gte: new Date(dateStart), $lte: new Date(dateFinish) }
         }
 
         transparenciaSchema
