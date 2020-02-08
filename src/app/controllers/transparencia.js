@@ -1,4 +1,4 @@
-const TransparenciaSchema = require('./../models/transparencia')
+const transparenciaSchema = require('./../models/transparencia')
 
 class Transparencia {
 
@@ -24,7 +24,7 @@ class Transparencia {
             query['data'] = { $gte: new Date(dateStart), $lte: new Date(dateFinish) }
         }
 
-        TransparenciaSchema
+        transparenciaSchema
             .find(query)
             .sort({ data: order })
             .skip(skip)
@@ -36,7 +36,7 @@ class Transparencia {
                 else if (Array.isArray(data) && data.length == 0) {
                     res.status(404).json({ message: 'Não foram encontrados dados para os termos da pesquisa! Tente pesquisar novamente' })
                 } else {
-                    TransparenciaSchema
+                    transparenciaSchema
                         .estimatedDocumentCount()
                         .find(query)
                         .exec((err, count) => {
@@ -58,7 +58,7 @@ class Transparencia {
     }
 
     getById(req, res) {
-        TransparenciaSchema.findById(req.params.id, (err, transparencia) => {
+        transparenciaSchema.findById(req.params.id, (err, transparencia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -68,7 +68,7 @@ class Transparencia {
     }
 
     create(req, res) {
-        TransparenciaSchema.create(req.body, (err, transparencia) => {
+        transparenciaSchema.create(req.body, (err, transparencia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -78,7 +78,7 @@ class Transparencia {
     }
 
     update(req, res) {
-        TransparenciaSchema.updateOne({ _id: req.params.id }, { $set: req.body }, (err, transparencia) => {
+        transparenciaSchema.updateOne({ _id: req.params.id }, { $set: req.body }, (err, transparencia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -88,7 +88,7 @@ class Transparencia {
     }
 
     delete(req, res) {
-        TransparenciaSchema.deleteOne({ _id: req.params.id }, (err, transparencia) => {
+        transparenciaSchema.deleteOne({ _id: req.params.id }, (err, transparencia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
