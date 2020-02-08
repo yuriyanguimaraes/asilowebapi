@@ -15,7 +15,7 @@ const noticiaSchema = new Schema({
         type: Array,
         required: false,
     },
-    data: {
+    date: {
         type: Date,
         required: true
     },
