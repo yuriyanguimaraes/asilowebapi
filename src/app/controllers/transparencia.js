@@ -5,7 +5,7 @@ class Transparencia {
     getWithParams(req, res) {
 
         const limit = 10
-        
+
         let query = {}
         let page = req.query.page
         let skip = limit * (page - 1)
@@ -44,7 +44,8 @@ class Transparencia {
                                 message: 'Dados recuperados com sucesso',
                                 data: data,
                                 page: page,
-                                pages: Math.ceil(count / limit)
+                                pages: Math.ceil(count / limit),
+                                count: count
                             })
                         }
                     })
