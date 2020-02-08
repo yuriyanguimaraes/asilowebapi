@@ -7,18 +7,27 @@ const TransparenciaSchema = new Schema({
         maxlength: 150,
         trim: true
     },
+    descricao: {
+        type: String,
+        required: true,
+        maxlength: 500,
+        trim: true
+    },
+    categoria: {
+        type: String,
+        required: true,
+        maxlength: 50,
+        trim: true
+    },
+    date: {
+        type: Date,
+        required: true
+    },
     pdf: {
         type: String,
         required: true,
         trim: true,
         maxlength: 255
-    },
-    categoria: {
-        type: String,
-        required: true,
-        minlength: 4,
-        maxlength: 4,
-        trim: true
     },
     status: {
         type: Boolean,
