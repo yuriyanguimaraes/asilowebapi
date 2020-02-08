@@ -9,7 +9,7 @@ class Noticia {
             } else {
                 res.status(200).json({ message: 'Dados recuperados com sucesso', data: noticia })
             }
-        }).sort([['data', -1]])
+        }).sort([['date', -1]])
     }
 
     getNoticiaById(req, res) {
