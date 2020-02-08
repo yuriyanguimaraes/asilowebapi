@@ -36,19 +36,23 @@ class Transparencia {
                 else if (Array.isArray(data) && data.length == 0) {
                     res.status(404).json({ message: 'Não foram encontrados dados para os termos da pesquisa' })
                 } else {
-                    TransparenciaSchema.estimatedDocumentCount().exec((err, count) => {
-                        if (err) {
-                            res.status(500).json({ message: 'Houve um erro ao processar sua requisição', err: err })
-                        } else {
-                            res.status(200).json({
-                                message: 'Dados recuperados com sucesso',
-                                data: data,
-                                page: page,
-                                pages: Math.ceil(count / limit),
-                                count: count
-                            })
-                        }
-                    })
+                    TransparenciaSchema
+                        .estimatedDocumentCount()
+                        .find(query)
+                        .exec((err, count) => {
+                            let totalDocuments = count.length
+                            if (err) {
+                                res.status(500).json({ message: 'Houve um erro ao processar sua requisição', err: err })
+                            } else {
+                                res.status(200).json({
+                                    message: 'Dados recuperados com sucesso',
+                                    data: data,
+                                    page: page,
+                                    limit: limit,
+                                    count: totalDocuments,
+                                })
+                            }
+                        })
                 }
             })
     }
