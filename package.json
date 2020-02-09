@@ -1,6 +1,6 @@
 {
   "name": "asiloweb-api",
-  "version": "1.4",
+  "version": "1.0.0",
   "description": "API backend node.js para o projeto do site institucional do asilo de ibitinga",
   "main": "index.js",
   "scripts": {
