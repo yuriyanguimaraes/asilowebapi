@@ -4,7 +4,7 @@ const ContatoSchema = require('./../models/contato')
 class Contato {
 
     get(req, res) {
-        ContatoSchema.find({}, (err, contato) => {
+        ContatoSchema.findOne({}, (err, contato) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
