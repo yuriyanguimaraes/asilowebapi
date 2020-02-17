@@ -40,6 +40,11 @@ const ContatoSchema = new Schema({
         type: Array,
         required: false,
     },
+    email: {
+        type: String,
+        required: true,
+        maxlength: 40
+    },
     status: {
         type: Boolean,
         trim: true,
