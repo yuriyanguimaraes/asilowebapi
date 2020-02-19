@@ -9,15 +9,10 @@ class Noticia {
         let query = {}
         let page = req.query.page
         let skip = limit * (page - 1)
-        let { dateStart, dateFinish, order } = req.query
+        let { keyword, order } = req.query
 
-        if (dateStart && dateFinish) {
-            query['date'] = { $gte: new Date(dateStart), $lte: new Date(dateFinish) }
-        }
-
-        if (dateStart && !dateFinish) {
-            dateFinish = Date.now()
-            query['date'] = { $gte: new Date(dateStart), $lte: new Date(dateFinish) }
+        if (keyword) {
+            query = { $text: { $search: `"\"${keyword}\""` } }
         }
 
         noticiaSchema
@@ -50,16 +45,6 @@ class Noticia {
                         })
                 }
             })
-    }
-
-    getNoticiaById(req, res) {
-        noticiaSchema.findById(req.params._id, (err, noticia) => {
-            if (err) {
-                res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
-            } else {
-                res.status(200).json({ message: 'Noticia recuperada com sucesso', data: noticia })
-            }
-        })
     }
 
     getThreeResults(req, res) {
