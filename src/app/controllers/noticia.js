@@ -9,16 +9,7 @@ class Noticia {
         let query = {}
         let page = req.query.page
         let skip = limit * (page - 1)
-        let { dateStart, dateFinish, order, keyword } = req.query
-
-        if (dateStart && dateFinish) {
-            query['date'] = { $gte: new Date(dateStart), $lte: new Date(dateFinish) }
-        }
-
-        if (dateStart && !dateFinish) {
-            dateFinish = Date.now()
-            query['date'] = { $gte: new Date(dateStart), $lte: new Date(dateFinish) }
-        }
+        let { keyword, order } = req.query
 
         if (keyword) {
             query = { $text: { $search: `"\"${keyword}\""` } }
