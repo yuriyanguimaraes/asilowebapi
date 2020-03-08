@@ -7,10 +7,9 @@ class Transparencia {
         const limit = 10
 
         let query = {}
-        let columnSort = req.query.columnSort
         let page = req.query.page
         let skip = limit * (page - 1)
-        let { category, dateStart, dateFinish, valueSort } = req.query
+        let { category, dateStart, dateFinish, columnSort, valueSort } = req.query
 
         if (category) {
             query['categoria'] = new RegExp(category, "i")
