@@ -4,12 +4,11 @@ class Noticia {
 
     getWithParams(req, res) {
 
-        const limit = 6
-
+        let limit = parseInt(req.query.limit)
         let query = {}
         let page = req.query.page
         let skip = limit * (page - 1)
-        let { keyword, order } = req.query
+        let { keyword, columnSort, valueSort } = req.query
 
         if (keyword) {
             query = { $text: { $search: `"\"${keyword}\""` } }
@@ -17,7 +16,7 @@ class Noticia {
 
         noticiaSchema
             .find(query)
-            .sort({ date: order })
+            .sort([[columnSort, valueSort]])
             .skip(skip)
             .limit(limit)
             .exec((err, data) => {
