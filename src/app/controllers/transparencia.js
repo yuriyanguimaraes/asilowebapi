@@ -9,7 +9,7 @@ class Transparencia {
         let query = {}
         let page = req.query.page
         let skip = limit * (page - 1)
-        let { category, dateStart, dateFinish, order } = req.query
+        let { category, dateStart, dateFinish, columnSort, valueSort } = req.query
 
         if (category) {
             query['categoria'] = new RegExp(category, "i")
@@ -26,7 +26,7 @@ class Transparencia {
 
         transparenciaSchema
             .find(query)
-            .sort({ data: order })
+            .sort([[columnSort, valueSort]])
             .skip(skip)
             .limit(limit)
             .exec((err, data) => {
