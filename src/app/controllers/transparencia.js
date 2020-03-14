@@ -1,20 +1,64 @@
-const mongoose = require('mongoose')
-const TransparenciaSchema = require('./../models/transparencia')
+const transparenciaSchema = require('./../models/transparencia')
 
 class Transparencia {
 
-    get(req, res) {
-        TransparenciaSchema.find({}, (err, transparencia) => {
-            if (err) {
-                res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
-            } else {
-                res.status(200).json({ message: 'Dados recuperados com sucesso', data: transparencia })
-            }
-        })
+    getWithParams(req, res) {
+
+        const limit = 10
+
+        let query = {}
+        let page = req.query.page
+        let skip = limit * (page - 1)
+        let { category, dateStart, dateFinish, columnSort, valueSort } = req.query
+
+        if (category) {
+            query['categoria'] = new RegExp(category, "i")
+        }
+
+        if (dateStart && dateFinish) {
+            query['date'] = { $gte: new Date(dateStart), $lte: new Date(dateFinish) }
+        }
+
+        if (dateStart && !dateFinish) {
+            dateFinish = Date.now()
+            query['date'] = { $gte: new Date(dateStart), $lte: new Date(dateFinish) }
+        }
+
+        transparenciaSchema
+            .find(query)
+            .sort([[columnSort, valueSort]])
+            .skip(skip)
+            .limit(limit)
+            .exec((err, data) => {
+                if (err) {
+                    res.status(500).json({ message: 'Houve um erro ao processar sua requisição', err: err })
+                }
+                else if (Array.isArray(data) && data.length == 0) {
+                    res.status(404).json({ message: 'Não foram encontrados dados para os termos da pesquisa! Tente pesquisar novamente' })
+                } else {
+                    transparenciaSchema
+                        .estimatedDocumentCount()
+                        .find(query)
+                        .exec((err, count) => {
+                            let totalDocuments = count.length
+                            if (err) {
+                                res.status(500).json({ message: 'Houve um erro ao processar sua requisição', err: err })
+                            } else {
+                                res.status(200).json({
+                                    message: 'Dados recuperados com sucesso',
+                                    data: data,
+                                    page: page,
+                                    limit: limit,
+                                    count: totalDocuments,
+                                })
+                            }
+                        })
+                }
+            })
     }
 
     getById(req, res) {
-        TransparenciaSchema.findById(req.params.id, (err, transparencia) => {
+        transparenciaSchema.findById(req.params.id, (err, transparencia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -24,7 +68,7 @@ class Transparencia {
     }
 
     create(req, res) {
-        TransparenciaSchema.create(req.body, (err, transparencia) => {
+        transparenciaSchema.create(req.body, (err, transparencia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -34,7 +78,7 @@ class Transparencia {
     }
 
     update(req, res) {
-        TransparenciaSchema.updateOne({ _id: req.params.id }, { $set: req.body }, (err, transparencia) => {
+        transparenciaSchema.updateOne({ _id: req.params.id }, { $set: req.body }, (err, transparencia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
@@ -44,7 +88,7 @@ class Transparencia {
     }
 
     delete(req, res) {
-        TransparenciaSchema.deleteOne({ _id: req.params.id }, (err, transparencia) => {
+        transparenciaSchema.deleteOne({ _id: req.params.id }, (err, transparencia) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
