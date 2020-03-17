@@ -10,15 +10,13 @@ class Faq {
         let query = {}
         let page = req.query.page
         let skip = limit * (page - 1)
-        let { keyword, order } = req.query
+        let { columnSort, valueSort } = req.query
 
-        if (keyword) {
-            query = { $text: { $search: `"\"${keyword}\""` } }
-        }
+
 
         FaqSchema
             .find(query)
-            .sort({ date: order })
+            .sort([[ columnSort, valueSort ]])
             .skip(skip)
             .limit(limit)
             .exec((err, data) => {
@@ -46,16 +44,6 @@ class Faq {
                         })
                 }
             })
-    }
-
-    get(req, res) {
-        FaqSchema.find({}, (err, faq) => {
-            if (err) {
-                res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
-            } else {
-                res.status(200).json({ message: 'Dados recuperados com sucesso', data: faq })
-            }
-        })
     }
 
     create(req, res) {
