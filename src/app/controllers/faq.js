@@ -1,4 +1,3 @@
-const mongoose = require('mongoose')
 const FaqSchema = require('./../models/faq')
 
 class Faq {
@@ -44,6 +43,29 @@ class Faq {
                         })
                 }
             })
+    }
+
+    getById(req, res) {
+        FaqSchema.findById(req.params.id, (err, faq) => {
+            if (err) {
+                res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
+            } else {
+                res.status(200).json({ message: 'FAQ recuperado com sucesso', data: faq })
+            }
+        })
+    }
+
+    getByQuestion(req, res) {
+        let question = req.params.pergunta.replace(/%20/g, " ")
+        console.log("qualquer coisa: ",question)
+        console.log("qualquer coisa: ",req.params.pergunta)
+        FaqSchema.findOne({ pergunta: { $eq: question } }, (err, faq) => {
+            if (err) {
+                res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
+            } else {
+                res.status(200).json({ message: 'FAQ recuperada com sucesso', data: faq })
+            }
+        })
     }
 
     create(req, res) {
