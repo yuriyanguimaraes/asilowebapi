@@ -56,10 +56,8 @@ class Faq {
     }
 
     getByQuestion(req, res) {
-        let question = req.params.pergunta.replace(/%20/g, " ")
-        console.log("qualquer coisa: ",question)
-        console.log("qualquer coisa: ",req.params.pergunta)
-        FaqSchema.findOne({ pergunta: { $eq: question } }, (err, faq) => {
+        let question = req.params.pergunta.replace(/%20/g, " ", "?")
+        FaqSchema.findOne({ pergunta: new RegExp(question, 'i') }, (err, faq) => {
             if (err) {
                 res.status(500).json({ message: 'Houve um erro ao processar sua requisição', error: err })
             } else {
